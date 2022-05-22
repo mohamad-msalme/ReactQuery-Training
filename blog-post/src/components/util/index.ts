@@ -1,0 +1,9 @@
+export { 
+  DEF_PAGE, 
+  NEXT_LABEL_BTN, 
+  MSG__LOADING,
+  MSG__ERROR,
+  PREV_LABEL_BTN, 
+  PARAMS,
+  DEFAULT_RESPONSE_STATE
+} from './postConstance'
