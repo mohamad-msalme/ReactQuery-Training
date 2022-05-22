@@ -3,6 +3,7 @@ import { TComment, TPost, TResponse } from '../types';
 import { CommentsList } from './CommentsList';
 import { jsonPlaceholder } from '../../apis';
 import { DEFAULT_RESPONSE_STATE, MSG__ERROR } from '../util';
+import { useLoadComments } from '../hooks/useLoadComments';
 
 type TPostDetailsProps = {
   post: TPost,
@@ -13,21 +14,13 @@ type TPostDetailsProps = {
 
 export const PostDetails: React.FC<TPostDetailsProps> = ({ post, onDeleteClick, onUpdateClick }) => {
 
-  const [comments, setComments ] = React.useState<TResponse<TComment[]>>(DEFAULT_RESPONSE_STATE);
-
+  const commentsState = useLoadComments(post.id);
+  
   const render = (): React.ReactNode => {
-    if (comments.loading) return comments.loadingMsg;
-    else if (comments.error) return comments.error;
-    else if (comments.data) return <CommentsList comments={comments.data} />
+    if (commentsState.loading) return commentsState.loadingMsg;
+    else if (commentsState.error) return commentsState.error;
+    else if (commentsState.data) return <CommentsList comments={commentsState.data} />
   }
-
-  React.useEffect(() => {
-    jsonPlaceholder.getCommentByPostId<TComment[]>(post.id)
-      .then((res) => setComments((prevState) => ({...prevState, loading: false, data: res.data})))
-      .catch((err: { msg: string }) => setComments((prevState) => (
-        {...prevState,loading: false, error: `${MSG__ERROR} ${err.msg},`, data: undefined}))
-      );
-  }, [post.id])
 
   return (
     <>
