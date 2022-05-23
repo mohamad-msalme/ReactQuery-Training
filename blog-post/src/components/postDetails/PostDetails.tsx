@@ -1,8 +1,7 @@
 import React from 'react';
-import { TComment, TPost, TResponse } from '../types';
+import { TPost } from '../types';
 import { CommentsList } from './CommentsList';
-import { jsonPlaceholder } from '../../apis';
-import { DEFAULT_RESPONSE_STATE, MSG__ERROR } from '../util';
+import { MSG__ERROR, MSG__LOADING } from '../util';
 import { useLoadComments } from '../hooks/useLoadComments';
 
 type TPostDetailsProps = {
@@ -15,10 +14,10 @@ type TPostDetailsProps = {
 export const PostDetails: React.FC<TPostDetailsProps> = ({ post, onDeleteClick, onUpdateClick }) => {
 
   const commentsState = useLoadComments(post.id);
-  
+
   const render = (): React.ReactNode => {
-    if (commentsState.loading) return commentsState.loadingMsg;
-    else if (commentsState.error) return commentsState.error;
+    if (commentsState.isLoading) return MSG__LOADING;
+    else if (commentsState.isError) return MSG__ERROR;
     else if (commentsState.data) return <CommentsList comments={commentsState.data} />
   }
 

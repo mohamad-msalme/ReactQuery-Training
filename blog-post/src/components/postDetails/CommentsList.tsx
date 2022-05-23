@@ -7,7 +7,6 @@ type TCommentsListProps = {
 }
 
 export const CommentsList: React.FC<TCommentsListProps> = ({comments}) => {
-
   return (
     <>
       {

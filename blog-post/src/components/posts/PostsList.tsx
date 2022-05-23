@@ -8,7 +8,7 @@ type TPostListProps = {
 export const PostsList: React.FC<TPostListProps> = ({posts, onPostClick}) =>  {
 
   return (
-    <ul>
+    <ul style={{height: '282px'}}>
       {posts.map((post) => (
         <li
           key={post.id}
