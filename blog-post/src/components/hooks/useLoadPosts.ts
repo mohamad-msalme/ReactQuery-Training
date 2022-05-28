@@ -10,9 +10,10 @@ export const useLoadPosts = (currentPage: number) => (
     ['posts', currentPage],
     () => jsonPlaceholder.getPosts<TPost[]>(
       { params: {...PARAMS, '_page': currentPage} }
-    )
-    .then((res) => res.data),{
+    ),{
       refetchOnWindowFocus: false,
+      keepPreviousData: true,
+      staleTime: 1000
     }
   )
 )

@@ -5,5 +5,6 @@ export {
   MSG__ERROR,
   PREV_LABEL_BTN, 
   PARAMS,
-  DEFAULT_RESPONSE_STATE
+  DEFAULT_RESPONSE_STATE,
+  MAX_PAGE
 } from './postConstance'

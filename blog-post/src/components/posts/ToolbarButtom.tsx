@@ -1,7 +1,7 @@
 import React from "react";
 import { UseQueryResult } from "react-query";
 import { TPost } from "../types";
-import { NEXT_LABEL_BTN, PREV_LABEL_BTN} from '../util';
+import { NEXT_LABEL_BTN, PREV_LABEL_BTN, DEF_PAGE, MAX_PAGE} from '../util';
 
 type TToolbarButtomProps = {
   pageNum: number;
@@ -13,11 +13,11 @@ export const ToolbarButtom: React.FC<TToolbarButtomProps> = ({pageNum, onBtnClic
 
   return (
     <div className="pages">
-      <button disabled={pageNum === 0} onClick={() => onBtnClick((prevState) => prevState - 1)}>
+      <button disabled={pageNum === DEF_PAGE} onClick={() => onBtnClick((prevState) => prevState - 1)}>
         {PREV_LABEL_BTN}
       </button>
-      <span>Page {pageNum + 1}</span>
-      <button onClick={() => {onBtnClick((prevState) => prevState + 1)}}>
+      <span>Page {pageNum}</span>
+      <button disabled={ pageNum === MAX_PAGE} onClick={() => {onBtnClick((prevState) => prevState + 1)}}>
         {NEXT_LABEL_BTN}
       </button>
     </div>

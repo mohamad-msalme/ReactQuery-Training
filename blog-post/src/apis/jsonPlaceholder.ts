@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 class JsonPlaceholder {
 
   async getPosts<TData>(config: AxiosRequestConfig ) {
-    return axiosInstance.get<TData>('posts', {...config});
+    return axiosInstance.get<TData>('posts', {...config}).then((res) => res.data);
   }
 
   async updatePost<D>(postId: number, data: D) {

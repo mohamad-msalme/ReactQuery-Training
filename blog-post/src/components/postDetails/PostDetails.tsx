@@ -3,17 +3,20 @@ import { TPost } from '../types';
 import { CommentsList } from './CommentsList';
 import { MSG__ERROR, MSG__LOADING } from '../util';
 import { useLoadComments } from '../hooks/useLoadComments';
+import { useMutation } from 'react-query';
+import { jsonPlaceholder } from '../../apis';
 
 type TPostDetailsProps = {
   post: TPost,
-  onUpdateClick: () => void;
-  onDeleteClick: () => void;
 }
 
 
-export const PostDetails: React.FC<TPostDetailsProps> = ({ post, onDeleteClick, onUpdateClick }) => {
+export const PostDetails: React.FC<TPostDetailsProps> = ({ post }) => {
 
   const commentsState = useLoadComments(post.id);
+  const deleteMutation = useMutation((postId: number) => jsonPlaceholder.deletePost(postId));
+  
+  const updateMutation = useMutation(() => jsonPlaceholder.updatePost<{title: string}>(post.id, {title: 'updated...'}))
 
   const render = (): React.ReactNode => {
     if (commentsState.isLoading) return MSG__LOADING;
@@ -24,7 +27,8 @@ export const PostDetails: React.FC<TPostDetailsProps> = ({ post, onDeleteClick, 
   return (
     <>
       <h3 style={{ color: "blue" }}>{post.title}</h3>
-      <button onClick={onDeleteClick}>Delete</button> <button onClick={onUpdateClick}>Update title</button>
+      <button onClick={() => deleteMutation.mutate(post.id, { onSettled: () => deleteMutation.reset()})}>Delete</button> 
+      <button onClick={() => updateMutation.mutate()}>Update title</button>
       <p>{post.body}</p>
       <h4>Comments</h4>
       {render()}

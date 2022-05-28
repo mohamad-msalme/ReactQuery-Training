@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 
-export const DEF_PAGE = 0;
+export const DEF_PAGE = 1;
+export const MAX_PAGE = 10;
 export const PARAMS = {
     '_limit': 10,
     '_page': DEF_PAGE
